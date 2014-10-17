@@ -37,10 +37,10 @@
         <div id="main">           
             <!--保存操作后的提示信息：成功或者失败-->
             <div id="save_result_info" class="save_success">保存成功！</div>
-            <form action="" method="post" class="main_form">
+            <form action="updateRole.do" method="post" class="main_form">
                 <div class="text_info clearfix"><span>角色名称：</span></div>
                 <div class="input_info">
-                    <input type="text" class="width200" value="超级管理员" />
+                    <input type="text" class="width200" value="${role.name }" />
                     <span class="required">*</span>
                     <div class="validate_msg_medium error_msg">不能为空，且为20长度的字母、数字和汉字的组合</div>
                 </div>                    
@@ -48,8 +48,17 @@
                 <div class="input_info_high">
                     <div class="input_info_scroll">
                         <ul>
+                        	<%--遍历所有模块，初始化checkbox --%>
                         	<c:forEach items="${modules }" var="m">
-                            	<li><input type="checkbox" value="${m.module_id }" />${m.name }</li>
+                        		<%--遍历角色对应模块，设置默认勾选 --%>
+                        		<%-- 如果角色对应的模块id与外层循环的模块id一致，则将此checkbox勾选，即输出checked --%>
+                            	<li><input type="checkbox" name="moduleIds" value="${m.module_id }"
+                            	<c:forEach items="${role.modules}" var="rm">
+                            				<c:if test="${rm.module_id==m.module_id}">
+                            					checked="checked"
+                            				</c:if>
+                            			</c:forEach>
+                            	 />${m.name }</li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -57,7 +66,7 @@
                     <div class="validate_msg_tiny">至少选择一个权限</div>
                 </div>
                 <div class="button_info clearfix">
-                    <input type="button" value="保存" class="btn_save" onclick="showResult();" />
+                    <input type="submit" value="保存" class="btn_save"  />
                     <input type="button" value="取消" class="btn_save" />
                 </div>
             </form> 

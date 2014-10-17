@@ -40,7 +40,10 @@
 	<insert id="saveRoleModule" parameterType="hashmap" >
 		insert into role_module values(#{role_id}, #{module_id})
 	</insert>
-	
+	<!-- findById -->
+	<select id="findById" parameterType="int" resultMap="roleMap">
+		select * from role_info where role_id=#{id}
+	</select>
 </mapper>
 
 

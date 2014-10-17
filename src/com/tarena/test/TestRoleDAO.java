@@ -31,5 +31,13 @@ public class TestRoleDAO {
 			System.out.println("---------------------");
 		}
 	}
+	
+	@Test
+	public void testFindById(){
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		RoleDAO dao = ctx.getBean(RoleDAO.class);
+		Role role = dao.findById(100);
+		System.out.println(role.getName()+" "+role.getRole_id()+" "+role.getModules());
+	}
 
 }

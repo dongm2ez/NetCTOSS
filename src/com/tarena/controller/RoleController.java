@@ -60,7 +60,9 @@ public class RoleController {
 	}
 	
 	@RequestMapping("toUpdate.do")
-	public String toUpdate(Model model){
+	public String toUpdate(int id, Model model){
+		Role role = roleDAO.findById(id);
+		model.addAttribute("role",role);
 		//查询出全部模块，用于初始化模块checkbox
 		List<Module> list = roleDAO.findAllMoudles();
 		model.addAttribute("modules",list);
