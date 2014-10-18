@@ -15,11 +15,15 @@ import com.tarena.dao.RoleDAO;
 import com.tarena.entity.Module;
 import com.tarena.entity.Role;
 import com.tarena.entity.page.RolePage;
-
+/**
+ * 角色模块控制器
+ * @author DongYuxiang(dongm2ez@163.com)
+ * @date 2014年10月18日
+ */
 @Controller
 @RequestMapping("/role")
 @SessionAttributes("rolePage")
-public class RoleController {
+public class RoleController extends BaseController{
 	@Resource
 	private RoleDAO roleDAO;
 	
@@ -58,14 +62,33 @@ public class RoleController {
 		}
 		return "redirect:findRole.do";
 	}
-	
-	@RequestMapping("toUpdate.do")
+	@RequestMapping("toUpdateRole.do")
 	public String toUpdate(int id, Model model){
+		//根据id查出角色及其对应模块
 		Role role = roleDAO.findById(id);
 		model.addAttribute("role",role);
 		//查询出全部模块，用于初始化模块checkbox
 		List<Module> list = roleDAO.findAllMoudles();
 		model.addAttribute("modules",list);
 		return "role/update_role";
+	}
+	
+	@RequestMapping("updateRole.do")
+	public String update(Role role){
+		//修改角色
+		roleDAO.update(role);
+		//删除角色对应中间表数据
+		roleDAO.deleteRoleModule(role.getRole_id());
+		//重新插入角色对应中间表数据
+		List<Integer> moduleIds = role.getModuleIds();
+		if(moduleIds != null && moduleIds.size() > 0){
+			for(Integer moduleId : moduleIds){
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("role_id", role.getRole_id());
+				map.put("module_id", moduleId);
+				roleDAO.saveRoleModule(map);
+			}
+		}
+		return "redirect:findRole.do";
 	}
 }

@@ -44,6 +44,14 @@
 	<select id="findById" parameterType="int" resultMap="roleMap">
 		select * from role_info where role_id=#{id}
 	</select>
+	<!-- update -->
+	<update id="update" parameterType="com.tarena.entity.Role">
+		update role_info set name=#{name} where role_id=#{role_id}
+	</update>
+	<!-- deleteRoleModule -->
+	<delete id="deleteRoleModule" parameterType="int">
+		delete from role_module where role_id=#{roleId}
+	</delete>
 </mapper>
 
 

@@ -40,7 +40,8 @@
             <form action="updateRole.do" method="post" class="main_form">
                 <div class="text_info clearfix"><span>角色名称：</span></div>
                 <div class="input_info">
-                    <input type="text" class="width200" value="${role.name }" />
+                	<input type="hidden" name="role_id" value="${role.role_id }"/>
+                    <input type="text" name="name" class="width200" value="${role.name }" />
                     <span class="required">*</span>
                     <div class="validate_msg_medium error_msg">不能为空，且为20长度的字母、数字和汉字的组合</div>
                 </div>                    
@@ -67,7 +68,7 @@
                 </div>
                 <div class="button_info clearfix">
                     <input type="submit" value="保存" class="btn_save"  />
-                    <input type="button" value="取消" class="btn_save" />
+                    <input type="button" value="取消" class="btn_save" onclick="history.back()" />
                 </div>
             </form> 
         </div>

@@ -1,12 +1,6 @@
 <script type="text/javascript" src="../js/jquery-1.11.1.js">
 </script>
-<script language="javascript" type="text/javascript" >
-	function a($){
-// 		$("#menu a:first").attr();
-// 		$("#menu a:eq(1)").attr("class","role_on");
-		
-	}
-	
+<script type="text/javascript" >
 	$("document").ready(function() {
 		$("#menu .index_off").mouseover(function() {
 			$(this).attr("class", "index_on");
@@ -72,8 +66,8 @@
 </script>
 <div id="navi">
             <ul id="menu">
-                <li><a href="../index.html" class="index_off" ></a></li>
-                <li><a href="../role/findRole.do" class="role_off"></a></li>
+                <li><a href="../index.jsp" class="index_off" ></a></li>
+                <li><a href="../role/findRole.do" class="role_off" ></a></li>
                 <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
                 <li><a href="../cost/findCost.do" class="fee_off"></a></li>
                 <li><a href="../account/findAccount.do" class="account_off" ></a></li>

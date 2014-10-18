@@ -55,4 +55,12 @@ public interface RoleDAO {
 	 * @param role
 	 */
 	void update(Role role);
+	/**
+	 * 根据id删除角色中间表数据
+	 * @author DongYuxiang(dongm2ez@163.com)
+	 * @date 2014年10月18日	
+	 * @param id
+	 */
+	void deleteRoleModule(int roleId);
+
 }
