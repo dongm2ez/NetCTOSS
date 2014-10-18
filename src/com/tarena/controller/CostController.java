@@ -21,7 +21,7 @@ import com.tarena.entity.page.CostPage;
  */
 @Controller
 @RequestMapping("/cost")
-@SessionAttributes("Costpage")
+@SessionAttributes("costPage")
 public class CostController extends BaseController {
 	@Resource
 	private CostDAO costDAO;
@@ -37,14 +37,14 @@ public class CostController extends BaseController {
 //	}
 	
 	@RequestMapping("/findCost.do")
-	public String execute(CostPage page,Model model){
+	public String execute(CostPage costPage,Model model){
 		//查询总行数，用来计算总页数
 		int rows = costDAO.findRows();
-		page.setRows(rows);
+		costPage.setRows(rows);
 		//调用DAO查询某一页的资费数据
-		List<Cost> list = costDAO.findPage(page);
+		List<Cost> list = costDAO.findPage(costPage);
 		//绑定数据
-		model.addAttribute("costPage",page);
+		model.addAttribute("costPage",costPage);
 		model.addAttribute("costs",list);
 		//匹配JSP
 		return "cost/cost_list";

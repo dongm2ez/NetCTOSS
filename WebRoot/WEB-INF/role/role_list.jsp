@@ -7,11 +7,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>达内－NetCTOSS</title>
         <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
+        <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" />
+        
         <script language="javascript" type="text/javascript">
-            function deleteRole() {
+            function deleteRole(id) {
                 var r = window.confirm("确定要删除此角色吗？");
-                document.getElementById("operate_result_info").style.display = "block";
+                if(r){
+                	window.location.href="deleteRole.do?roleId="+id;
+                	
+                }
+                //document.getElementById("operate_result_info").style.display = "block";
             }
         </script>
     </head>
@@ -64,7 +69,7 @@
 							</td>
                             <td>
                                 <input type="button" value="修改" class="btn_modify" onclick="location.href='toUpdateRole.do?id=${r.role_id}';"/>
-                                <input type="button" value="删除" class="btn_delete" onclick="deleteRole();" />
+                                <input type="button" value="删除" class="btn_delete" onclick="deleteRole(${r.role_id});" />
                             </td>
                         </tr>
                         </c:forEach>  

@@ -62,7 +62,7 @@ public class RoleController extends BaseController{
 		}
 		return "redirect:findRole.do";
 	}
-	@RequestMapping("toUpdateRole.do")
+	@RequestMapping("/toUpdateRole.do")
 	public String toUpdate(int id, Model model){
 		//根据id查出角色及其对应模块
 		Role role = roleDAO.findById(id);
@@ -73,7 +73,7 @@ public class RoleController extends BaseController{
 		return "role/update_role";
 	}
 	
-	@RequestMapping("updateRole.do")
+	@RequestMapping("/updateRole.do")
 	public String update(Role role){
 		//修改角色
 		roleDAO.update(role);
@@ -89,6 +89,15 @@ public class RoleController extends BaseController{
 				roleDAO.saveRoleModule(map);
 			}
 		}
+		return "redirect:findRole.do";
+	}
+	
+	@RequestMapping("/deleteRole.do")
+	public String delete(int roleId){
+		//删除角色表数据
+		roleDAO.delete(roleId);
+		//删除角色中间表数据
+		roleDAO.deleteRoleModule(roleId);
 		return "redirect:findRole.do";
 	}
 }

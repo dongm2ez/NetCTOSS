@@ -52,6 +52,10 @@
 	<delete id="deleteRoleModule" parameterType="int">
 		delete from role_module where role_id=#{roleId}
 	</delete>
+	<!-- delete -->
+	<delete id="delete" parameterType="int">
+		delete from role_info where role_id=#{roleId}
+	</delete>
 </mapper>
 
 

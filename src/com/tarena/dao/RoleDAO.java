@@ -62,5 +62,12 @@ public interface RoleDAO {
 	 * @param id
 	 */
 	void deleteRoleModule(int roleId);
+	/**
+	 * 根据id删除角色数据
+	 * @author DongYuxiang(dongm2ez@163.com)
+	 * @date 2014年10月18日	
+	 * @param id
+	 */
+	void delete(int roleId);
 
 }
