@@ -1,59 +1,59 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
- "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.tarena.dao.RoleDAO">
-	<!-- findByPage -->
-	<select id="findByPage" parameterType="com.tarena.entity.page.RolePage"
-		resultType="com.tarena.entity.Role" resultMap="roleMap">
+    <!-- findByPage -->
+    <select id="findByPage" parameterType="com.tarena.entity.page.RolePage"
+            resultType="com.tarena.entity.Role" resultMap="roleMap">
 		select * from(select a.*,rownum r from(select * from
 		role_info order by role_id) a)where r&lt;#{end} and r>#{begin}
 	</select>
-	<select id="findModuleByRoleId" parameterType="int"
-		resultType="com.tarena.entity.Module">
+    <select id="findModuleByRoleId" parameterType="int"
+            resultType="com.tarena.entity.Module">
 		select * from module_info
 		where module_id in (
 		select module_id from role_module
 		where role_id=#{role_id}
 		)
 	</select>
-	<resultMap id="roleMap" type="com.tarena.entity.Role">
-		<id column="role_id" property="role_id" />
-		<collection property="modules" javaType="arraylist"
-			ofType="com.tarena.entity.Module" column="role_id" select="findModuleByRoleId">
-		</collection>
-	</resultMap>
+    <resultMap id="roleMap" type="com.tarena.entity.Role">
+        <id column="role_id" property="role_id"/>
+        <collection property="modules" javaType="arraylist"
+                    ofType="com.tarena.entity.Module" column="role_id" select="findModuleByRoleId">
+        </collection>
+    </resultMap>
 
-	<!-- findRows -->
-	<select id="findRows" resultType="int">
+    <!-- findRows -->
+    <select id="findRows" resultType="int">
 		select count(*) from role_info
 	</select>
-	<!-- findAllModules -->
-	<select id="findAllMoudles" resultType="com.tarena.entity.Module" >
+    <!-- findAllModules -->
+    <select id="findAllMoudles" resultType="com.tarena.entity.Module">
 		select * from module_info order by module_id
 	</select>
-	<!-- save -->
-	<insert id="save" parameterType="com.tarena.entity.Role" >
-		<selectKey resultType="int" order="BEFORE" keyProperty="role_id">select role_seq.nextval from dual</selectKey>
-		insert into role_info values(#{role_id}, #{name})
-	</insert>
-	<!-- saveRoleModule -->
-	<insert id="saveRoleModule" parameterType="hashmap" >
+    <!-- save -->
+    <insert id="save" parameterType="com.tarena.entity.Role">
+        <selectKey resultType="int" order="BEFORE" keyProperty="role_id">select role_seq.nextval from dual</selectKey>
+        insert into role_info values(#{role_id}, #{name})
+    </insert>
+    <!-- saveRoleModule -->
+    <insert id="saveRoleModule" parameterType="hashmap">
 		insert into role_module values(#{role_id}, #{module_id})
 	</insert>
-	<!-- findById -->
-	<select id="findById" parameterType="int" resultMap="roleMap">
+    <!-- findById -->
+    <select id="findById" parameterType="int" resultMap="roleMap">
 		select * from role_info where role_id=#{id}
 	</select>
-	<!-- update -->
-	<update id="update" parameterType="com.tarena.entity.Role">
+    <!-- update -->
+    <update id="update" parameterType="com.tarena.entity.Role">
 		update role_info set name=#{name} where role_id=#{role_id}
 	</update>
-	<!-- deleteRoleModule -->
-	<delete id="deleteRoleModule" parameterType="int">
+    <!-- deleteRoleModule -->
+    <delete id="deleteRoleModule" parameterType="int">
 		delete from role_module where role_id=#{roleId}
 	</delete>
-	<!-- delete -->
-	<delete id="delete" parameterType="int">
+    <!-- delete -->
+    <delete id="delete" parameterType="int">
 		delete from role_info where role_id=#{roleId}
 	</delete>
 </mapper>

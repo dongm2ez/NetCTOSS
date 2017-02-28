@@ -1,83 +1,83 @@
 package com.tarena.controller;
 
-import java.sql.Timestamp;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.tarena.dao.AccountDAO;
+import com.tarena.entity.Account;
+import com.tarena.entity.page.AccountPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.tarena.dao.AccountDAO;
-import com.tarena.entity.Account;
-import com.tarena.entity.page.AccountPage;
+import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
- * ÕÊÎñÕËºÅÄ£¿é¿ØÖÆÆ÷
- * @author Administrator
+ * å¸åŠ¡è´¦å·æ¨¡å—æ§åˆ¶å™¨
  *
+ * @author Administrator
  */
 @Controller
 @RequestMapping("/account")
 @SessionAttributes("accountPage")
-public class AccountController extends BaseController{
-	@Resource
-	private AccountDAO accountDAO;
-	/**
-	 * Spring´´½¨page¶ÔÏóµÄ¹æÔò
-	 * 1.²é¿´sessionÖĞÊÇ·ñÓĞpage¶ÔÏó£¬Èô´æÔÚÖ±½ÓÊ¹ÓÃ¶ÔÏó
-	 * 2.ÈôsessionÖĞ²»´æÔÚÕâ¸ö¶ÔÏóÔònewĞÂ¶ÔÏó
-	 * 3.´ÓÇëÇóÖĞ»ñÈ¡²ÎÊı£¬ÉèÖÃ¸ø¶ÔÏó
-	 * 
-	 * ×¢Òâ£º
-	 * 	·ÃÎÊ¸Ã·½·¨Ê±£¬Spring»áÊ×ÏÈ³¢ÊÔ´ÓsessionÖĞ
-	 * 	È¡¸Ã¶ÔÏóµÄÖµ£¬È¡Öµ¹æÔòÈçÏÂ£º
-	 * 	session.getAttribute("accountPage");
-	 * 	¼´Spring»áÒÔ²ÎÊıÀàĞÍ£¨Ê××ÖÄ¸Ğ¡Ğ´£©Îªkey´Ó
-	 * 	sessionÖĞÈ¡Öµ£¬ÄÇÃ´ÎªÁË±£Ö¤ÄÜ¹»È¡µ½Õâ¸öÖµ£¬
-	 * 	ÎÒÃÇÏòsession·ÅÊı¾İÊ±£¬Ãû³ÆÓ¦¸ÃÊÇÆäÀàÃû£¨Ê××ÖÄ¸Ğ¡Ğ´£©¡£
-	 * 
-	 * @param page
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/findAccount.do")
-	public String find(AccountPage page, Model model){
-		//²éÑ¯³öµ±Ç°Ò³µÄÊı¾İ£¬´«µİ¸øÒ³Ãæ
-		List<Account> list = accountDAO.findByPage(page);
-		model.addAttribute("accounts",list);
-		//²éÑ¯³ö×ÜĞĞÊı£¬ÉèÖÃµ½pageÖĞ£¬½«page´«µİ¸øÒ³Ãæ
-		page.setRows(accountDAO.findRows(page));
-		//Ä¬ÈÏÇé¿öÏÂ£¬Spring»á½«Êı¾İ·ÅÈërequest´«µ½Ò³Ãæ
-		//µ±Í¨¹ı×¢½â@SessionAttributesÉùÃ÷Ä³Êı¾İÊ±,Spring¾Í»áÊ¹ÓÃsessionÏòÒ³Ãæ´«µİÊı¾İ
-		model.addAttribute("accountPage",page);
-		return "account/account_list";
-	}
-	
-	@RequestMapping("/pauseAccount.do")
-	public String updatePause(int id){
-		accountDAO.pause(id);
-		return "redirect:findAccount.do";
-	}
-	
-	@RequestMapping("/startAccount.do")
-	public String updateStart(int id){
-		accountDAO.start(id);
-		return "redirect:findAccount.do";
-	}
-	
-	@RequestMapping("/toAddAccount.do")
-	public String toAdd(){
-		return "account/add_account";
-	}
-	
-	@RequestMapping("/addAccount.do")
-	public String add(Account account){
-		//ÉèÖÃÄ¬ÈÏÖµ
-		account.setStatus("1");
-		account.setCreate_date(new Timestamp(System.currentTimeMillis()));
-		accountDAO.save(account);
-		return "redirect:findAccount.do";
-	}
+public class AccountController extends BaseController {
+    @Resource
+    private AccountDAO accountDAO;
+
+    /**
+     * Springåˆ›å»ºpageå¯¹è±¡çš„è§„åˆ™
+     * 1.æŸ¥çœ‹sessionä¸­æ˜¯å¦æœ‰pageå¯¹è±¡ï¼Œè‹¥å­˜åœ¨ç›´æ¥ä½¿ç”¨å¯¹è±¡
+     * 2.è‹¥sessionä¸­ä¸å­˜åœ¨è¿™ä¸ªå¯¹è±¡åˆ™newæ–°å¯¹è±¡
+     * 3.ä»è¯·æ±‚ä¸­è·å–å‚æ•°ï¼Œè®¾ç½®ç»™å¯¹è±¡
+     * <p>
+     * æ³¨æ„ï¼š
+     * è®¿é—®è¯¥æ–¹æ³•æ—¶ï¼ŒSpringä¼šé¦–å…ˆå°è¯•ä»sessionä¸­
+     * å–è¯¥å¯¹è±¡çš„å€¼ï¼Œå–å€¼è§„åˆ™å¦‚ä¸‹ï¼š
+     * session.getAttribute("accountPage");
+     * å³Springä¼šä»¥å‚æ•°ç±»å‹ï¼ˆé¦–å­—æ¯å°å†™ï¼‰ä¸ºkeyä»
+     * sessionä¸­å–å€¼ï¼Œé‚£ä¹ˆä¸ºäº†ä¿è¯èƒ½å¤Ÿå–åˆ°è¿™ä¸ªå€¼ï¼Œ
+     * æˆ‘ä»¬å‘sessionæ”¾æ•°æ®æ—¶ï¼Œåç§°åº”è¯¥æ˜¯å…¶ç±»åï¼ˆé¦–å­—æ¯å°å†™ï¼‰ã€‚
+     *
+     * @param page
+     * @param model
+     * @return
+     */
+    @RequestMapping("/findAccount.do")
+    public String find(AccountPage page, Model model) {
+        //æŸ¥è¯¢å‡ºå½“å‰é¡µçš„æ•°æ®ï¼Œä¼ é€’ç»™é¡µé¢
+        List<Account> list = accountDAO.findByPage(page);
+        model.addAttribute("accounts", list);
+        //æŸ¥è¯¢å‡ºæ€»è¡Œæ•°ï¼Œè®¾ç½®åˆ°pageä¸­ï¼Œå°†pageä¼ é€’ç»™é¡µé¢
+        page.setRows(accountDAO.findRows(page));
+        //é»˜è®¤æƒ…å†µä¸‹ï¼ŒSpringä¼šå°†æ•°æ®æ”¾å…¥requestä¼ åˆ°é¡µé¢
+        //å½“é€šè¿‡æ³¨è§£@SessionAttributeså£°æ˜æŸæ•°æ®æ—¶,Springå°±ä¼šä½¿ç”¨sessionå‘é¡µé¢ä¼ é€’æ•°æ®
+        model.addAttribute("accountPage", page);
+        return "account/account_list";
+    }
+
+    @RequestMapping("/pauseAccount.do")
+    public String updatePause(int id) {
+        accountDAO.pause(id);
+        return "redirect:findAccount.do";
+    }
+
+    @RequestMapping("/startAccount.do")
+    public String updateStart(int id) {
+        accountDAO.start(id);
+        return "redirect:findAccount.do";
+    }
+
+    @RequestMapping("/toAddAccount.do")
+    public String toAdd() {
+        return "account/add_account";
+    }
+
+    @RequestMapping("/addAccount.do")
+    public String add(Account account) {
+        //è®¾ç½®é»˜è®¤å€¼
+        account.setStatus("1");
+        account.setCreate_date(new Timestamp(System.currentTimeMillis()));
+        accountDAO.save(account);
+        return "redirect:findAccount.do";
+    }
 }

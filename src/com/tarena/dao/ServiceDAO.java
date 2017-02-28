@@ -1,39 +1,48 @@
 package com.tarena.dao;
 
 
-import java.util.List;
-import java.util.Map;
-
 import com.tarena.annotation.MyBatisDAO;
 import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
+
+import java.util.List;
+import java.util.Map;
+
 @MyBatisDAO
 public interface ServiceDAO {
-	/**
-	 * ·ÖÒ³²éÑ¯ÒµÎñÕËºÅ
-	 * @return
-	 */
-	List<Map<String, Object>> findByPage(ServicePage page);
-	/**
-	 * ²éÑ¯³öÂú×ãÌõ¼şµÄ×ÜĞĞÊı
-	 * @return
-	 */
-	int findRows(ServicePage page);
-	/**
-	 * ¿ªÍ¨
-	 */
-	void start(int id);
-	/**
-	 * ¸ù¾İid²éÕÒÒµÎñÕËºÅ
-	 * @param id
-	 * @return
-	 */
-	Service findById(int id);
-	/**
-	 * Ìí¼ÓĞÂÒµÎñÕËºÅ
-	 * @param service
-	 */
-	void save(Service service);
-	
+    /**
+     * åˆ†é¡µæŸ¥è¯¢ä¸šåŠ¡è´¦å·
+     *
+     * @return
+     */
+    List<Map<String, Object>> findByPage(ServicePage page);
+
+    /**
+     * æŸ¥è¯¢å‡ºæ»¡è¶³æ¡ä»¶çš„æ€»è¡Œæ•°
+     *
+     * @return
+     */
+    int findRows(ServicePage page);
+
+    /**
+     * å¼€é€š
+     */
+    void start(int id);
+
+    /**
+     * æ ¹æ®idæŸ¥æ‰¾ä¸šåŠ¡è´¦å·
+     *
+     * @param id
+     * @return
+     */
+    Service findById(int id);
+
+    /**
+     * æ·»åŠ æ–°ä¸šåŠ¡è´¦å·
+     *
+     * @param service
+     */
+    void save(Service service);
+
 
 }

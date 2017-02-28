@@ -1,54 +1,68 @@
 package com.tarena.dao;
 
-import java.util.List;
-
 import com.tarena.annotation.MyBatisDAO;
 import com.tarena.entity.Account;
 import com.tarena.entity.page.AccountPage;
+
+import java.util.List;
+
 /**
- * Account±í²Ù×÷Àà
- * @author Administrator
+ * Accountè¡¨æ“ä½œç±»
  *
+ * @author Administrator
  */
 @MyBatisDAO
 public interface AccountDAO {
-	/**
-	 * ·ÖÒ³²éÑ¯ÕÊÎñÕËºÅ
-	 * @param page
-	 * @return
-	 */
-	List<Account> findByPage(AccountPage page);
-	/**
-	 * ²éÑ¯³öÂú×ãËÑË÷Ìõ¼şµÄ×ÜĞĞÊı
-	 * @param page
-	 * @return
-	 */
-	int findRows(AccountPage page);
-	/**
-	 * ½«Ö¸¶¨µÄÕÊÎñÕËºÅÉèÖÃÎªÔİÍ£Ì¬
-	 * @param id
-	 */
-	void pause(int id);
-	/**
-	 * ½«Ö¸¶¨ÕÊÎñÕËºÅÉèÖÃÎª¿ªÍ¨×´Ì¬
-	 * @param id
-	 */
-	void start(int id);
-	/**
-	 * ĞÂÔöÕÊÎñÕËºÅ
-	 * @param account
-	 */
-	void save(Account account);
-	/**
-	 * ¸ù¾İid²éÑ¯ÕÊÎñÕËºÅ
-	 * @param id
-	 * @return
-	 */
-	Account findById(int id);
-	/**
-	 * ¸ù¾İÉí·İÖ¤ºÅ²éÑ¯ÕÊÎñÕËºÅ
-	 * @param idcard_no
-	 * @return
-	 */
-	Account findByIdcard_no(String idcard_no);
+    /**
+     * åˆ†é¡µæŸ¥è¯¢å¸åŠ¡è´¦å·
+     *
+     * @param page
+     * @return
+     */
+    List<Account> findByPage(AccountPage page);
+
+    /**
+     * æŸ¥è¯¢å‡ºæ»¡è¶³æœç´¢æ¡ä»¶çš„æ€»è¡Œæ•°
+     *
+     * @param page
+     * @return
+     */
+    int findRows(AccountPage page);
+
+    /**
+     * å°†æŒ‡å®šçš„å¸åŠ¡è´¦å·è®¾ç½®ä¸ºæš‚åœæ€
+     *
+     * @param id
+     */
+    void pause(int id);
+
+    /**
+     * å°†æŒ‡å®šå¸åŠ¡è´¦å·è®¾ç½®ä¸ºå¼€é€šçŠ¶æ€
+     *
+     * @param id
+     */
+    void start(int id);
+
+    /**
+     * æ–°å¢å¸åŠ¡è´¦å·
+     *
+     * @param account
+     */
+    void save(Account account);
+
+    /**
+     * æ ¹æ®idæŸ¥è¯¢å¸åŠ¡è´¦å·
+     *
+     * @param id
+     * @return
+     */
+    Account findById(int id);
+
+    /**
+     * æ ¹æ®èº«ä»½è¯å·æŸ¥è¯¢å¸åŠ¡è´¦å·
+     *
+     * @param idcard_no
+     * @return
+     */
+    Account findByIdcard_no(String idcard_no);
 }

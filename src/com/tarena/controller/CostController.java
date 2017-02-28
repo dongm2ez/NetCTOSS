@@ -1,92 +1,90 @@
 package com.tarena.controller;
 
-import java.sql.Timestamp;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.tarena.dao.CostDAO;
+import com.tarena.entity.Cost;
+import com.tarena.entity.page.CostPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.tarena.dao.CostDAO;
-import com.tarena.entity.Cost;
-import com.tarena.entity.page.CostPage;
+import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
- * ×Ê·ÑÄ£¿é¿ØÖÆÆ÷
- * @author Administrator
+ * èµ„è´¹æ¨¡å—æ§åˆ¶å™¨
  *
+ * @author Administrator
  */
 @Controller
 @RequestMapping("/cost")
 @SessionAttributes("costPage")
 public class CostController extends BaseController {
-	@Resource
-	private CostDAO costDAO;
-	
+    @Resource
+    private CostDAO costDAO;
+
 //	@RequestMapping("/findCost.do")
 //	public String find(Model model) {
-//		//µ÷ÓÃDAO²éÑ¯È«²¿µÄ×Ê·ÑÊı¾İ
+//		//è°ƒç”¨DAOæŸ¥è¯¢å…¨éƒ¨çš„èµ„è´¹æ•°æ®
 //		List<Cost> list = costDAO.findAll();
-//		//½«Êı¾İ´«µİ¸øJSPÒ³Ãæ
+//		//å°†æ•°æ®ä¼ é€’ç»™JSPé¡µé¢
 //		model.addAttribute("costs", list);
-//		//Æ¥ÅäJSP
+//		//åŒ¹é…JSP
 //		return "cost/cost_list";
 //	}
-	
-	@RequestMapping("/findCost.do")
-	public String execute(CostPage costPage,Model model){
-		//²éÑ¯×ÜĞĞÊı£¬ÓÃÀ´¼ÆËã×ÜÒ³Êı
-		int rows = costDAO.findRows();
-		costPage.setRows(rows);
-		//µ÷ÓÃDAO²éÑ¯Ä³Ò»Ò³µÄ×Ê·ÑÊı¾İ
-		List<Cost> list = costDAO.findPage(costPage);
-		//°ó¶¨Êı¾İ
-		model.addAttribute("costPage",costPage);
-		model.addAttribute("costs",list);
-		//Æ¥ÅäJSP
-		return "cost/cost_list";
-	}
-	
-	@RequestMapping("/toAddCost.do")
-	public String toAdd(){
-		//Ö±½Ó×ª·¢µ½ĞÂÔöÒ³Ãæ
-		return "cost/add_cost";
-	}
-	
-	@RequestMapping("/addCost.do")
-	public String add(Cost cost){
-		//ÉèÖÃÄ¬ÈÏÖµ
-		cost.setStatus("1");
-		cost.setCreatime(new Timestamp(System.currentTimeMillis()));
-		//ĞÂÔöÊı¾İ
-		costDAO.save(cost);
-		//ÖØ¶¨Ïòµ½²éÑ¯
-		return "redirect:findCost.do";		
-	}
-	
-	@RequestMapping("/toUpdateCost.do")
-	public String toUpdate(int id,Model model){
-		Cost cost = costDAO.findById(id);
-		model.addAttribute("cost",cost);
-		//×ª·¢ĞŞ¸ÄÒ³Ãæ
-		return "cost/update_cost";
-	}
-	
-	@RequestMapping("/updateCost.do")
-	public String update(Cost cost){
-		costDAO.update(cost);
-		return "redirect:findCost.do";
-	}
-	
-	@RequestMapping("/deleteCost.do")
-	public String delete(@RequestParam("id")int id){
-		costDAO.deleteById(id);
-		return "redirect:findCost.do";
-	}
-	
-	
+
+    @RequestMapping("/findCost.do")
+    public String execute(CostPage costPage, Model model) {
+        //æŸ¥è¯¢æ€»è¡Œæ•°ï¼Œç”¨æ¥è®¡ç®—æ€»é¡µæ•°
+        int rows = costDAO.findRows();
+        costPage.setRows(rows);
+        //è°ƒç”¨DAOæŸ¥è¯¢æŸä¸€é¡µçš„èµ„è´¹æ•°æ®
+        List<Cost> list = costDAO.findPage(costPage);
+        //ç»‘å®šæ•°æ®
+        model.addAttribute("costPage", costPage);
+        model.addAttribute("costs", list);
+        //åŒ¹é…JSP
+        return "cost/cost_list";
+    }
+
+    @RequestMapping("/toAddCost.do")
+    public String toAdd() {
+        //ç›´æ¥è½¬å‘åˆ°æ–°å¢é¡µé¢
+        return "cost/add_cost";
+    }
+
+    @RequestMapping("/addCost.do")
+    public String add(Cost cost) {
+        //è®¾ç½®é»˜è®¤å€¼
+        cost.setStatus("1");
+        cost.setCreatime(new Timestamp(System.currentTimeMillis()));
+        //æ–°å¢æ•°æ®
+        costDAO.save(cost);
+        //é‡å®šå‘åˆ°æŸ¥è¯¢
+        return "redirect:findCost.do";
+    }
+
+    @RequestMapping("/toUpdateCost.do")
+    public String toUpdate(int id, Model model) {
+        Cost cost = costDAO.findById(id);
+        model.addAttribute("cost", cost);
+        //è½¬å‘ä¿®æ”¹é¡µé¢
+        return "cost/update_cost";
+    }
+
+    @RequestMapping("/updateCost.do")
+    public String update(Cost cost) {
+        costDAO.update(cost);
+        return "redirect:findCost.do";
+    }
+
+    @RequestMapping("/deleteCost.do")
+    public String delete(@RequestParam("id") int id) {
+        costDAO.deleteById(id);
+        return "redirect:findCost.do";
+    }
+
 
 }

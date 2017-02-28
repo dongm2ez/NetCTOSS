@@ -3,45 +3,52 @@ package com.tarena.entity;
 import java.util.List;
 
 /**
- * ½ÇÉ«¹ÜÀíÊµÌåÀà
- * @author Administrator
+ * è§’è‰²ç®¡ç†å®ä½“ç±»
  *
+ * @author Administrator
  */
 public class Role {
-	private Integer role_id;
-	private String name;
-	/**
-	 * Ä£¿éID,ÓÃÓÚ±£´æÊ±½ÓÊÕ±íµ¥´«ÈëµÄÒ»×éÄ£¿éIDÖµ
-	 */
-	private List<Integer> moduleIds;
-	/**
-	 * ¹ØÁªÊôĞÔ£¬ÓÃÓÚ·â×°¶ÔÓ¦µÄ¶à¸öÄ£¿é,²éÑ¯Ê±Ê¹ÓÃ
-	 */
-	private List<Module> modules;
-	
-	public List<Integer> getModuleIds() {
-		return moduleIds;
-	}
-	public void setModuleIds(List<Integer> moduleIds) {
-		this.moduleIds = moduleIds;
-	}
-	public List<Module> getModules() {
-		return modules;
-	}
-	public void setModules(List<Module> modules) {
-		this.modules = modules;
-	}
-	public Integer getRole_id() {
-		return role_id;
-	}
-	public void setRole_id(Integer role_id) {
-		this.role_id = role_id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+    private Integer role_id;
+    private String name;
+    /**
+     * æ¨¡å—ID,ç”¨äºä¿å­˜æ—¶æ¥æ”¶è¡¨å•ä¼ å…¥çš„ä¸€ç»„æ¨¡å—IDå€¼
+     */
+    private List<Integer> moduleIds;
+    /**
+     * å…³è”å±æ€§ï¼Œç”¨äºå°è£…å¯¹åº”çš„å¤šä¸ªæ¨¡å—,æŸ¥è¯¢æ—¶ä½¿ç”¨
+     */
+    private List<Module> modules;
+
+    public List<Integer> getModuleIds() {
+        return moduleIds;
+    }
+
+    public void setModuleIds(List<Integer> moduleIds) {
+        this.moduleIds = moduleIds;
+    }
+
+    public List<Module> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<Module> modules) {
+        this.modules = modules;
+    }
+
+    public Integer getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(Integer role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

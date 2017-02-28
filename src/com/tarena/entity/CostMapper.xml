@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
- "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.tarena.dao.CostDAO">
-	<!-- 查询全部 -->
-	<select id="findAll"
-		resultType="com.tarena.entity.Cost">
+    <!-- 查询全部 -->
+    <select id="findAll"
+            resultType="com.tarena.entity.Cost">
 		select * from cost
 	</select>
-	<!-- 新增保存 -->
-	<insert id="save" parameterType="com.tarena.entity.Cost" >
+    <!-- 新增保存 -->
+    <insert id="save" parameterType="com.tarena.entity.Cost">
 		insert into cost values(
 			cost_seq.nextval,
 			#{name,jdbcType=VARCHAR},
@@ -22,12 +22,12 @@
 			#{cost_type,jdbcType=CHAR}
 		)
 	</insert>
-	<!-- 根据ID查询资费 -->
-	<select id="findById" parameterType="int" resultType="com.tarena.entity.Cost">
+    <!-- 根据ID查询资费 -->
+    <select id="findById" parameterType="int" resultType="com.tarena.entity.Cost">
 		select * from cost where cost_id=#{id}
 	</select>
-	<!-- 修改一条资费数据 -->
-	<update id="update" parameterType="com.tarena.entity.Cost">
+    <!-- 修改一条资费数据 -->
+    <update id="update" parameterType="com.tarena.entity.Cost">
 		update cost set
 			name=#{name,jdbcType=VARCHAR},  
 			base_duration=#{base_duration,jdbcType=INTEGER},
@@ -37,21 +37,23 @@
 			cost_type=#{cost_type,jdbcType=CHAR} 
 		where cost_id=#{cost_id}
 	</update>
-	<!-- 删除一条资费数据 -->
-	<delete id="deleteById" parameterType="int">
+    <!-- 删除一条资费数据 -->
+    <delete id="deleteById" parameterType="int">
 		delete from cost where cost_id=#{id}
 	</delete>
-	<!-- 查询总条数 -->
-	<select id="findRows" resultType="int">
+    <!-- 查询总条数 -->
+    <select id="findRows" resultType="int">
 		select count(*) from cost
 	</select>
-	<!-- 获得分页后数据 -->
-	  <select id="findPage" parameterType="com.tarena.entity.page.CostPage" resultType="com.tarena.entity.Cost">
+    <!-- 获得分页后数据 -->
+    <select id="findPage" parameterType="com.tarena.entity.page.CostPage" resultType="com.tarena.entity.Cost">
 		<![CDATA[
+
 	select * from (select rownum r, c.* from (select * from cost order by cost_id) c) a where a.r<#{end} and a.r>#{begin}
-		]]>
+
+        ]]>
 	</select>
-	
+
 </mapper>
 
 

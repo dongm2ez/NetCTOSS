@@ -1,53 +1,67 @@
 package com.tarena.dao;
 
-import java.util.List;
-
 import com.tarena.annotation.MyBatisDAO;
 import com.tarena.entity.Cost;
 import com.tarena.entity.page.Page;
+
+import java.util.List;
+
 /**
- * cost±í²Ù×÷Àà
- * @author Administrator
+ * costè¡¨æ“ä½œç±»
  *
+ * @author Administrator
  */
 @MyBatisDAO
 public interface CostDAO {
-	/**
-	 * ²éÑ¯ËùÓĞ×Ê·ÑÊı¾İ
-	 * @return
-	 */
-	List<Cost> findAll();
-	/**
-	 * ĞÂÔöÒ»Ìõ×Ê·ÑÊı¾İ
-	 * @param cost
-	 */
-	void save(Cost cost);
-	/**
-	 * ¸ù¾İID²éÑ¯×Ê·ÑÊı¾İ
-	 * @param id
-	 * @return
-	 */
-	Cost findById(int id);
-	/**
-	 * ¸üĞÂ×Ê·ÑÊı¾İ
-	 * @param cost
-	 */
-	void update(Cost cost);
-	/**
-	 * É¾³ı×Ê·ÑÊı¾İ
-	 * @param id
-	 */
-	void deleteById(int id);
-	/**
-	 * »ñµÃ·ÖÒ³Êı¾İ
-	 * @param page
-	 * @return
-	 */
-	List<Cost> findPage(Page page);
-	/**
-	 * »ñµÃÊı¾İ×ÜÌõÊı
-	 * @return
-	 */
-	int findRows();
+    /**
+     * æŸ¥è¯¢æ‰€æœ‰èµ„è´¹æ•°æ®
+     *
+     * @return
+     */
+    List<Cost> findAll();
+
+    /**
+     * æ–°å¢ä¸€æ¡èµ„è´¹æ•°æ®
+     *
+     * @param cost
+     */
+    void save(Cost cost);
+
+    /**
+     * æ ¹æ®IDæŸ¥è¯¢èµ„è´¹æ•°æ®
+     *
+     * @param id
+     * @return
+     */
+    Cost findById(int id);
+
+    /**
+     * æ›´æ–°èµ„è´¹æ•°æ®
+     *
+     * @param cost
+     */
+    void update(Cost cost);
+
+    /**
+     * åˆ é™¤èµ„è´¹æ•°æ®
+     *
+     * @param id
+     */
+    void deleteById(int id);
+
+    /**
+     * è·å¾—åˆ†é¡µæ•°æ®
+     *
+     * @param page
+     * @return
+     */
+    List<Cost> findPage(Page page);
+
+    /**
+     * è·å¾—æ•°æ®æ€»æ¡æ•°
+     *
+     * @return
+     */
+    int findRows();
 }
 

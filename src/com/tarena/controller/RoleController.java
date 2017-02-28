@@ -1,103 +1,104 @@
 package com.tarena.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.tarena.dao.RoleDAO;
+import com.tarena.entity.Module;
+import com.tarena.entity.Role;
+import com.tarena.entity.page.RolePage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.tarena.dao.RoleDAO;
-import com.tarena.entity.Module;
-import com.tarena.entity.Role;
-import com.tarena.entity.page.RolePage;
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
- * ½ÇÉ«Ä£¿é¿ØÖÆÆ÷
+ * è§’è‰²æ¨¡å—æ§åˆ¶å™¨
+ *
  * @author DongYuxiang(dongm2ez@163.com)
- * @date 2014Äê10ÔÂ18ÈÕ
+ * @date 2014å¹´10æœˆ18æ—¥
  */
 @Controller
 @RequestMapping("/role")
 @SessionAttributes("rolePage")
-public class RoleController extends BaseController{
-	@Resource
-	private RoleDAO roleDAO;
-	
-	@RequestMapping("/findRole.do")
-	public String find(RolePage page, Model model){
-		//²éÑ¯µ±Ç°Ò³µÄÊı¾İ
-		List<Role> list = roleDAO.findByPage(page);
-		model.addAttribute("roles",list);
-		//²éÑ¯×ÜĞĞÊı
-		page.setRows(roleDAO.findRows());
-		model.addAttribute("rolePage",page);
-		return "role/role_list";
-	}
-	
-	@RequestMapping("/toAddRole.do")
-	public String toAdd(Model model){
-		//²éÑ¯³öÈ«²¿Ä£¿é£¬ÓÃÓÚ³õÊ¼»¯Ä£¿écheckbox
-		List<Module> list = roleDAO.findAllMoudles();
-		model.addAttribute("modules",list);
-		return "role/add_role";
-	}
-	
-	@RequestMapping("/addRole.do")
-	public String add(Role role){
-		//ĞÂÔö½ÇÉ«
-		roleDAO.save(role);
-		//ĞÂÔö½ÇÉ«Ä£¿éÖĞ¼ä±í
-		List<Integer> moduleIds = role.getModuleIds();
-		if(moduleIds != null && moduleIds.size()>0){
-			for(Integer moduleId:moduleIds){
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("role_id", role.getRole_id());
-				map.put("module_id", moduleId);
-				roleDAO.saveRoleModule(map);
-			}
-		}
-		return "redirect:findRole.do";
-	}
-	@RequestMapping("/toUpdateRole.do")
-	public String toUpdate(int id, Model model){
-		//¸ù¾İid²é³ö½ÇÉ«¼°Æä¶ÔÓ¦Ä£¿é
-		Role role = roleDAO.findById(id);
-		model.addAttribute("role",role);
-		//²éÑ¯³öÈ«²¿Ä£¿é£¬ÓÃÓÚ³õÊ¼»¯Ä£¿écheckbox
-		List<Module> list = roleDAO.findAllMoudles();
-		model.addAttribute("modules",list);
-		return "role/update_role";
-	}
-	
-	@RequestMapping("/updateRole.do")
-	public String update(Role role){
-		//ĞŞ¸Ä½ÇÉ«
-		roleDAO.update(role);
-		//É¾³ı½ÇÉ«¶ÔÓ¦ÖĞ¼ä±íÊı¾İ
-		roleDAO.deleteRoleModule(role.getRole_id());
-		//ÖØĞÂ²åÈë½ÇÉ«¶ÔÓ¦ÖĞ¼ä±íÊı¾İ
-		List<Integer> moduleIds = role.getModuleIds();
-		if(moduleIds != null && moduleIds.size() > 0){
-			for(Integer moduleId : moduleIds){
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("role_id", role.getRole_id());
-				map.put("module_id", moduleId);
-				roleDAO.saveRoleModule(map);
-			}
-		}
-		return "redirect:findRole.do";
-	}
-	
-	@RequestMapping("/deleteRole.do")
-	public String delete(int roleId){
-		//É¾³ı½ÇÉ«±íÊı¾İ
-		roleDAO.delete(roleId);
-		//É¾³ı½ÇÉ«ÖĞ¼ä±íÊı¾İ
-		roleDAO.deleteRoleModule(roleId);
-		return "redirect:findRole.do";
-	}
+public class RoleController extends BaseController {
+    @Resource
+    private RoleDAO roleDAO;
+
+    @RequestMapping("/findRole.do")
+    public String find(RolePage page, Model model) {
+        //æŸ¥è¯¢å½“å‰é¡µçš„æ•°æ®
+        List<Role> list = roleDAO.findByPage(page);
+        model.addAttribute("roles", list);
+        //æŸ¥è¯¢æ€»è¡Œæ•°
+        page.setRows(roleDAO.findRows());
+        model.addAttribute("rolePage", page);
+        return "role/role_list";
+    }
+
+    @RequestMapping("/toAddRole.do")
+    public String toAdd(Model model) {
+        //æŸ¥è¯¢å‡ºå…¨éƒ¨æ¨¡å—ï¼Œç”¨äºåˆå§‹åŒ–æ¨¡å—checkbox
+        List<Module> list = roleDAO.findAllMoudles();
+        model.addAttribute("modules", list);
+        return "role/add_role";
+    }
+
+    @RequestMapping("/addRole.do")
+    public String add(Role role) {
+        //æ–°å¢è§’è‰²
+        roleDAO.save(role);
+        //æ–°å¢è§’è‰²æ¨¡å—ä¸­é—´è¡¨
+        List<Integer> moduleIds = role.getModuleIds();
+        if (moduleIds != null && moduleIds.size() > 0) {
+            for (Integer moduleId : moduleIds) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("role_id", role.getRole_id());
+                map.put("module_id", moduleId);
+                roleDAO.saveRoleModule(map);
+            }
+        }
+        return "redirect:findRole.do";
+    }
+
+    @RequestMapping("/toUpdateRole.do")
+    public String toUpdate(int id, Model model) {
+        //æ ¹æ®idæŸ¥å‡ºè§’è‰²åŠå…¶å¯¹åº”æ¨¡å—
+        Role role = roleDAO.findById(id);
+        model.addAttribute("role", role);
+        //æŸ¥è¯¢å‡ºå…¨éƒ¨æ¨¡å—ï¼Œç”¨äºåˆå§‹åŒ–æ¨¡å—checkbox
+        List<Module> list = roleDAO.findAllMoudles();
+        model.addAttribute("modules", list);
+        return "role/update_role";
+    }
+
+    @RequestMapping("/updateRole.do")
+    public String update(Role role) {
+        //ä¿®æ”¹è§’è‰²
+        roleDAO.update(role);
+        //åˆ é™¤è§’è‰²å¯¹åº”ä¸­é—´è¡¨æ•°æ®
+        roleDAO.deleteRoleModule(role.getRole_id());
+        //é‡æ–°æ’å…¥è§’è‰²å¯¹åº”ä¸­é—´è¡¨æ•°æ®
+        List<Integer> moduleIds = role.getModuleIds();
+        if (moduleIds != null && moduleIds.size() > 0) {
+            for (Integer moduleId : moduleIds) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("role_id", role.getRole_id());
+                map.put("module_id", moduleId);
+                roleDAO.saveRoleModule(map);
+            }
+        }
+        return "redirect:findRole.do";
+    }
+
+    @RequestMapping("/deleteRole.do")
+    public String delete(int roleId) {
+        //åˆ é™¤è§’è‰²è¡¨æ•°æ®
+        roleDAO.delete(roleId);
+        //åˆ é™¤è§’è‰²ä¸­é—´è¡¨æ•°æ®
+        roleDAO.deleteRoleModule(roleId);
+        return "redirect:findRole.do";
+    }
 }

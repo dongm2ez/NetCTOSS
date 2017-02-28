@@ -1,28 +1,25 @@
 package com.tarena.controller;
 
-import java.sql.Date;
-
+import com.tarena.util.DateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.tarena.util.DateEditor;
+import java.sql.Date;
 
 /**
- *	ControllerµÄ¸¸Àà£¬ÓÃÓÚ·â×°Ò»Ğ©¹«¹²µÄÂß¼­¡£
+ * Controllerçš„çˆ¶ç±»ï¼Œç”¨äºå°è£…ä¸€äº›å…¬å…±çš„é€»è¾‘ã€‚
  */
 public class BaseController {
 
-	/**
-	 * @InitBinder×¢½âµÄº¬ÒåÊÇ£¬ÔÚÇëÇó¿ªÊ¼Ê±ÏÈµ÷ÓÃ´Ë·½·¨£¬
-	 * È»ºóÔÙµ÷ÓÃControllerµÄÒµÎñ·½·¨¡£
-	 */
-	@InitBinder
-  protected void initBinder(WebDataBinder binder) {
-		//×¢²áÒ»¸ö×Ô¶¨ÒåµÄ´¦ÀíÀà
-		//Ê¹ÓÃDateEditorÀ´´¦ÀíDateÀàĞÍµÄÈÕÆÚ×ª»»
-		//¼´½«SpringÄ¬ÈÏ´¦ÀíÈÕÆÚµÄÀàĞÍ»»³ÉDateEditor
-		binder.registerCustomEditor(
-				Date.class, new DateEditor());
-  }	
-	
+    /**
+     * @InitBinderæ³¨è§£çš„å«ä¹‰æ˜¯ï¼Œåœ¨è¯·æ±‚å¼€å§‹æ—¶å…ˆè°ƒç”¨æ­¤æ–¹æ³•ï¼Œ ç„¶åå†è°ƒç”¨Controllerçš„ä¸šåŠ¡æ–¹æ³•ã€‚
+     */
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        //æ³¨å†Œä¸€ä¸ªè‡ªå®šä¹‰çš„å¤„ç†ç±»
+        //ä½¿ç”¨DateEditoræ¥å¤„ç†Dateç±»å‹çš„æ—¥æœŸè½¬æ¢
+        //å³å°†Springé»˜è®¤å¤„ç†æ—¥æœŸçš„ç±»å‹æ¢æˆDateEditor
+        binder.registerCustomEditor(Date.class, new DateEditor());
+    }
+
 }

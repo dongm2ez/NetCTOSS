@@ -1,78 +1,78 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
- "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.tarena.dao.ServiceDAO">
 
-	<!-- 分页查询： Oracle在执行SQL之前会将SQL转变为大写的， 因此执行完SQL之后，查询到的字段名都是大写的， 如果用Map来封装数据，它会自动将字段名和值放到 
-		一个键值对中，显然Map的key会是大写的字段名。 -->
-	<select id="findByPage" parameterType="com.tarena.entity.page.ServicePage"
-		resultType="hashmap">
-		select * from (
-		select ser.*,rownum r from (
-		select s.*,
-		a.idcard_no,a.real_name,
-		c.name,c.descr
-		from service s
-		inner join account a
-		on a.account_id=s.account_id
-		inner join cost c
-		on c.cost_id=s.cost_id
-		<where>
-			<if test="os_username!=null &amp;&amp; os_username.length()>0">
-				and s.os_username=#{os_username}
-			</if>
-			<if test="unix_host!=null &amp;&amp; unix_host.length()>0">
-	and s.unix_host=#{unix_host}
-			</if>
-			<if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">
-				and a.idcard_no=#{idcard_no}
-			</if>
-			<if test='status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals("-1")'>
-				and s.status=#{status}
-			</if>
-		</where>
-		order by s.service_id
-		) ser
-		) where r&lt;#{end} and r>#{begin}
-	</select>
+    <!-- 分页查询： Oracle在执行SQL之前会将SQL转变为大写的， 因此执行完SQL之后，查询到的字段名都是大写的， 如果用Map来封装数据，它会自动将字段名和值放到
+        一个键值对中，显然Map的key会是大写的字段名。 -->
+    <select id="findByPage" parameterType="com.tarena.entity.page.ServicePage"
+            resultType="hashmap">
+        select * from (
+        select ser.*,rownum r from (
+        select s.*,
+        a.idcard_no,a.real_name,
+        c.name,c.descr
+        from service s
+        inner join account a
+        on a.account_id=s.account_id
+        inner join cost c
+        on c.cost_id=s.cost_id
+        <where>
+            <if test="os_username!=null &amp;&amp; os_username.length()>0">
+                and s.os_username=#{os_username}
+            </if>
+            <if test="unix_host!=null &amp;&amp; unix_host.length()>0">
+                and s.unix_host=#{unix_host}
+            </if>
+            <if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">
+                and a.idcard_no=#{idcard_no}
+            </if>
+            <if test='status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals("-1")'>
+                and s.status=#{status}
+            </if>
+        </where>
+        order by s.service_id
+        ) ser
+        ) where r&lt;#{end} and r>#{begin}
+    </select>
 
-	<!-- 查询满足条件的总行数 -->
-	<select id="findRows" parameterType="com.tarena.entity.page.ServicePage"
-		resultType="int">
-		select count(*)
-		from service s
-		inner join account a
-		on a.account_id=s.account_id
-		inner join cost c
-		on c.cost_id=s.cost_id
-		<where>
-			<if test="os_username!=null &amp;&amp; os_username.length()>0">
-				and s.os_username=#{os_username}
-			</if>
-			<if test="unix_host!=null &amp;&amp; unix_host.length()>0">
-				and s.unix_host=#{unix_host}
-			</if>
-			<if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">
-				and a.idcard_no=#{idcard_no}
-			</if>
-			<if test='status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals("-1")'>
-				and s.status=#{status}
-			</if>
-		</where>
-	</select>
+    <!-- 查询满足条件的总行数 -->
+    <select id="findRows" parameterType="com.tarena.entity.page.ServicePage"
+            resultType="int">
+        select count(*)
+        from service s
+        inner join account a
+        on a.account_id=s.account_id
+        inner join cost c
+        on c.cost_id=s.cost_id
+        <where>
+            <if test="os_username!=null &amp;&amp; os_username.length()>0">
+                and s.os_username=#{os_username}
+            </if>
+            <if test="unix_host!=null &amp;&amp; unix_host.length()>0">
+                and s.unix_host=#{unix_host}
+            </if>
+            <if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">
+                and a.idcard_no=#{idcard_no}
+            </if>
+            <if test='status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals("-1")'>
+                and s.status=#{status}
+            </if>
+        </where>
+    </select>
 
-	<!-- 开通业务账号 -->
-	<update id="start" parameterType="int">
+    <!-- 开通业务账号 -->
+    <update id="start" parameterType="int">
 		update service set status='0',
 		pause_date=null
 		where service_id=#{id}
 	</update>
-	<!-- 根据id查询业务账号 -->
-	<select id="findById" parameterType="int" resultType="com.tarena.entity.Service">
+    <!-- 根据id查询业务账号 -->
+    <select id="findById" parameterType="int" resultType="com.tarena.entity.Service">
 		select * from service where service_id=#{id}
 	</select>
-	<!-- 添加新业务账号 -->
-	<insert id="save" parameterType="com.tarena.entity.Service">
+    <!-- 添加新业务账号 -->
+    <insert id="save" parameterType="com.tarena.entity.Service">
 		insert into service values(
 			service_seq.nextval,
 			#{account_id,jdbcType=INTEGER},

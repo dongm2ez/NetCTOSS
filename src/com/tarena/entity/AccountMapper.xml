@@ -1,38 +1,40 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
-"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="com.tarena.dao.AccountDAO">
-	<!-- 分页查询 -->
-	<select id="findByPage" parameterType="com.tarena.entity.page.AccountPage" resultType="com.tarena.entity.Account">
-		select * from ( select a.*,rownum r from( select * from account
-			<where>
-				<if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">and idcard_no=#{idcard_no}</if>
-				<if test="real_name!=null &amp;&amp; real_name.length()>0">and real_name=#{real_name}</if>
-				<if test="login_name!=null &amp;&amp; login_name.length()>0">and login_name=#{login_name}</if>
-				<if test="status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals('-1')">and status=#{status}</if>
-			</where>
-		order by account_id ) a ) where r&lt;#{end} and r>#{begin}
-	</select>
-	<!-- 根据搜索条件查询满足条件的总行数 -->
-	<select id="findRows" parameterType="com.tarena.entity.page.AccountPage" resultType="int">
-		select count(*) from account
-			<where>
-				<if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">and idcard_no=#{idcard_no}</if>
-				<if test="real_name!=null &amp;&amp; real_name.length()>0">and real_name=#{real_name}</if>
-				<if test="login_name!=null &amp;&amp; login_name.length()>0">and login_name=#{login_name}</if>
-				<if test="status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals('-1')">and status=#{status}</if>
-			</where>
-	</select>
-	<!-- 暂停帐务账号 -->
-	<update id="pause" parameterType="int">
+    <!-- 分页查询 -->
+    <select id="findByPage" parameterType="com.tarena.entity.page.AccountPage" resultType="com.tarena.entity.Account">
+        select * from ( select a.*,rownum r from( select * from account
+        <where>
+            <if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">and idcard_no=#{idcard_no}</if>
+            <if test="real_name!=null &amp;&amp; real_name.length()>0">and real_name=#{real_name}</if>
+            <if test="login_name!=null &amp;&amp; login_name.length()>0">and login_name=#{login_name}</if>
+            <if test="status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals('-1')">and status=#{status}
+            </if>
+        </where>
+        order by account_id ) a ) where r&lt;#{end} and r>#{begin}
+    </select>
+    <!-- 根据搜索条件查询满足条件的总行数 -->
+    <select id="findRows" parameterType="com.tarena.entity.page.AccountPage" resultType="int">
+        select count(*) from account
+        <where>
+            <if test="idcard_no!=null &amp;&amp; idcard_no.length()>0">and idcard_no=#{idcard_no}</if>
+            <if test="real_name!=null &amp;&amp; real_name.length()>0">and real_name=#{real_name}</if>
+            <if test="login_name!=null &amp;&amp; login_name.length()>0">and login_name=#{login_name}</if>
+            <if test="status!=null &amp;&amp; status.length()>0 &amp;&amp; !status.equals('-1')">and status=#{status}
+            </if>
+        </where>
+    </select>
+    <!-- 暂停帐务账号 -->
+    <update id="pause" parameterType="int">
 		update account set status='1',pause_date=sysdate where account_id=#{id}
 	</update>
-	<!-- 开通帐务账号 -->
-	<update id="start" parameterType="int">
+    <!-- 开通帐务账号 -->
+    <update id="start" parameterType="int">
 		update account set status='0',pause_date=null where account_id=#{id}
 	</update>
-	<!-- 添加帐务账号 -->
-	<insert id="save" parameterType="com.tarena.entity.Account">
+    <!-- 添加帐务账号 -->
+    <insert id="save" parameterType="com.tarena.entity.Account">
 		insert into account values(			
 				account_seq.nextval, 
 				#{recommender_id,jdbcType=INTEGER}, 
@@ -56,14 +58,14 @@
 				#{last_login_ip,jdbcType=VARCHAR}
 		)
 	</insert>
-	<!-- 根据id查询帐务账号 -->
-	<select id="findById" parameterType="int" resultType="com.tarena.entity.Account">
+    <!-- 根据id查询帐务账号 -->
+    <select id="findById" parameterType="int" resultType="com.tarena.entity.Account">
 		select * from account where account_id=#{id}
 	</select>
-	<!-- 根据身份证号查询帐务账号 -->
-	<select id="findByIdcard_no" parameterType="String" resultType="com.tarena.entity.Account">
+    <!-- 根据身份证号查询帐务账号 -->
+    <select id="findByIdcard_no" parameterType="String" resultType="com.tarena.entity.Account">
 		select account_id,login_name from account where idcard_no=#{idcard_no}
-	</select> 	
+	</select>
 </mapper>
 
 

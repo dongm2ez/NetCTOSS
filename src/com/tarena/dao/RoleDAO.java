@@ -1,73 +1,91 @@
 package com.tarena.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import com.tarena.annotation.MyBatisDAO;
 import com.tarena.entity.Module;
 import com.tarena.entity.Role;
 import com.tarena.entity.page.RolePage;
+
+import java.util.List;
+import java.util.Map;
+
 /**
- * Role±í²Ù×÷Àà
- * @author Administrator
+ * Roleè¡¨æ“ä½œç±»
  *
+ * @author Administrator
  */
 @MyBatisDAO
 public interface RoleDAO {
-	/**
-	 * ·ÖÒ³²éÑ¯½ÇÉ«ĞÅÏ¢
-	 * @return
-	 */
-	List<Role> findByPage(RolePage page);
-	/**
-	 * ²éÑ¯½ÇÉ«×ÜĞĞÊı
-	 * @return
-	 */
-	int findRows();
-	/**
-	 * ²éÑ¯È«²¿Ä£¿éÊı¾İ
-	 * @return
-	 */
-	List<Module> findAllMoudles();
-	/**
-	 * ±£´æ½ÇÉ«Êı¾İ
-	 * @param module
-	 */
-	void save(Role role);
-	/**
-	 * ±£´æ½ÇÉ«Ä£¿éÖĞ¼ä±íÊı¾İ
-	 * Ò»ÌõÖĞ¼ä±íÊı¾İ£¬ÆäÖĞkeyÊÇ×Ö¶ÎÃû£¬ÖµÊÇ×Ö¶ÎÖµ
-	 * @param map
-	 */
-	void saveRoleModule(Map<String, Object> map);
-	/**
-	 * ¸ù¾İid²éÕÒ½ÇÉ«Êı¾İ
-	 * @author DongYuxiang(dongm2ez@163.com)
-	 * @date 2014Äê10ÔÂ17ÈÕ	
-	 * @param id
-	 * @return
-	 */
-	Role findById(int id);
-	/**
-	 * ¸üĞÂ½ÇÉ«Êı¾İ
-	 * @author DongYuxiang(dongm2ez@163.com)
-	 * @date 2014Äê10ÔÂ17ÈÕ	
-	 * @param role
-	 */
-	void update(Role role);
-	/**
-	 * ¸ù¾İidÉ¾³ı½ÇÉ«ÖĞ¼ä±íÊı¾İ
-	 * @author DongYuxiang(dongm2ez@163.com)
-	 * @date 2014Äê10ÔÂ18ÈÕ	
-	 * @param id
-	 */
-	void deleteRoleModule(int roleId);
-	/**
-	 * ¸ù¾İidÉ¾³ı½ÇÉ«Êı¾İ
-	 * @author DongYuxiang(dongm2ez@163.com)
-	 * @date 2014Äê10ÔÂ18ÈÕ	
-	 * @param id
-	 */
-	void delete(int roleId);
+    /**
+     * åˆ†é¡µæŸ¥è¯¢è§’è‰²ä¿¡æ¯
+     *
+     * @return
+     */
+    List<Role> findByPage(RolePage page);
+
+    /**
+     * æŸ¥è¯¢è§’è‰²æ€»è¡Œæ•°
+     *
+     * @return
+     */
+    int findRows();
+
+    /**
+     * æŸ¥è¯¢å…¨éƒ¨æ¨¡å—æ•°æ®
+     *
+     * @return
+     */
+    List<Module> findAllMoudles();
+
+    /**
+     * ä¿å­˜è§’è‰²æ•°æ®
+     *
+     * @param module
+     */
+    void save(Role role);
+
+    /**
+     * ä¿å­˜è§’è‰²æ¨¡å—ä¸­é—´è¡¨æ•°æ®
+     * ä¸€æ¡ä¸­é—´è¡¨æ•°æ®ï¼Œå…¶ä¸­keyæ˜¯å­—æ®µåï¼Œå€¼æ˜¯å­—æ®µå€¼
+     *
+     * @param map
+     */
+    void saveRoleModule(Map<String, Object> map);
+
+    /**
+     * æ ¹æ®idæŸ¥æ‰¾è§’è‰²æ•°æ®
+     *
+     * @param id
+     * @return
+     * @author DongYuxiang(dongm2ez@163.com)
+     * @date 2014å¹´10æœˆ17æ—¥
+     */
+    Role findById(int id);
+
+    /**
+     * æ›´æ–°è§’è‰²æ•°æ®
+     *
+     * @param role
+     * @author DongYuxiang(dongm2ez@163.com)
+     * @date 2014å¹´10æœˆ17æ—¥
+     */
+    void update(Role role);
+
+    /**
+     * æ ¹æ®idåˆ é™¤è§’è‰²ä¸­é—´è¡¨æ•°æ®
+     *
+     * @param id
+     * @author DongYuxiang(dongm2ez@163.com)
+     * @date 2014å¹´10æœˆ18æ—¥
+     */
+    void deleteRoleModule(int roleId);
+
+    /**
+     * æ ¹æ®idåˆ é™¤è§’è‰²æ•°æ®
+     *
+     * @param id
+     * @author DongYuxiang(dongm2ez@163.com)
+     * @date 2014å¹´10æœˆ18æ—¥
+     */
+    void delete(int roleId);
 
 }

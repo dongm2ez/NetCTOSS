@@ -1,18 +1,5 @@
 package com.tarena.controller;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.tarena.dao.AccountDAO;
 import com.tarena.dao.CostDAO;
 import com.tarena.dao.ServiceDAO;
@@ -20,74 +7,85 @@ import com.tarena.entity.Account;
 import com.tarena.entity.Cost;
 import com.tarena.entity.Service;
 import com.tarena.entity.page.ServicePage;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/service")
 @SessionAttributes("servicePage")
-public class SerivceController extends BaseController{
-	@Resource
-	private ServiceDAO serviceDAO;
-	@Resource
-	private AccountDAO accountDAO;
-	@Resource
-	private CostDAO costDAO;
-	
-	@RequestMapping("/findService.do")
-	public String find(ServicePage page, Model model) {
-		//²éÑ¯³öµ±Ç°Ò³Êı¾İ
-		List<Map<String, Object>> list = 
-				serviceDAO.findByPage(page);
-		model.addAttribute("services", list);
-		//²éÑ¯×ÜĞĞÊı
-		page.setRows(serviceDAO.findRows(page));
-		model.addAttribute("servicePage", page);
-		return "service/service_list";
-	}
-	
-	@RequestMapping("/startService.do")
-	@ResponseBody
-	public Map<String, Object> updateStart(int id) {
-		Map<String, Object> result = 
-			new HashMap<String, Object>();
-		//ÅĞ¶ÏÕËÎñÕËºÅÊÇ·ñ¿ªÍ¨
-		Service service = serviceDAO.findById(id);
-		Account account = 
-			accountDAO.findById(service.getAccount_id());
-		if(account.getStatus().equals("0")) {
-			//¿ªÍ¨ÕËÎñÕËºÅ£¬ÔÊĞí¿ªÍ¨µ±Ç°ÒµÎñÕËºÅ
-			serviceDAO.start(id);
-			result.put("success", true);
-			result.put("message", "¿ªÍ¨³É¹¦.");
-			//{"success":true,"message":"¿ªÍ¨³É¹¦."}			
-		} else {
-			//Ã»ÓĞ¿ªÍ¨ÕËÎñÕËºÅ£¬²»ÔÊĞí¿ªÍ¨µ±Ç°ÒµÎñÕËºÅ
-			result.put("success", false);
-			result.put("message", "ÕËÎñÕËºÅÎ´¿ªÍ¨£¬²»ÄÜ¿ªÍ¨´ËÒµÎñÕËºÅ.");
-		}
-		return result;
-	}
-	
-	@RequestMapping("/toAddService.do")
-	public String toAdd(Model model){
-		//²éÑ¯³öÏà¹ØµÄ×Ê·ÑÊı¾İ£¬ÓÃÀ´³õÊ¼»¯ÏÂÀ­Ñ¡
-		List<Cost> list = costDAO.findAll();
-		model.addAttribute("costs", list);
-		return "service/add_service";
-	}
-	
-	@RequestMapping("/addService.do")
-	public String add(Service service){
-		//ÉèÖÃÄ¬ÈÏÖµ
-		service.setStatus("0");
-		service.setCreate_date((new Timestamp(System.currentTimeMillis())));
-		serviceDAO.save(service);	
-		return "redirect:findService.do";
-	}
-	
-	@RequestMapping("/searchAccount.do")
-	@ResponseBody
-	public Account searchAccount(String idcard_no){
-		//{"account_id":1,"real_name":"ÕÅÈı",...}
-		return accountDAO.findByIdcard_no(idcard_no);
-	}
+public class SerivceController extends BaseController {
+    @Resource
+    private ServiceDAO serviceDAO;
+    @Resource
+    private AccountDAO accountDAO;
+    @Resource
+    private CostDAO costDAO;
+
+    @RequestMapping("/findService.do")
+    public String find(ServicePage page, Model model) {
+        //æŸ¥è¯¢å‡ºå½“å‰é¡µæ•°æ®
+        List<Map<String, Object>> list =
+                serviceDAO.findByPage(page);
+        model.addAttribute("services", list);
+        //æŸ¥è¯¢æ€»è¡Œæ•°
+        page.setRows(serviceDAO.findRows(page));
+        model.addAttribute("servicePage", page);
+        return "service/service_list";
+    }
+
+    @RequestMapping("/startService.do")
+    @ResponseBody
+    public Map<String, Object> updateStart(int id) {
+        Map<String, Object> result =
+                new HashMap<String, Object>();
+        //åˆ¤æ–­è´¦åŠ¡è´¦å·æ˜¯å¦å¼€é€š
+        Service service = serviceDAO.findById(id);
+        Account account =
+                accountDAO.findById(service.getAccount_id());
+        if (account.getStatus().equals("0")) {
+            //å¼€é€šè´¦åŠ¡è´¦å·ï¼Œå…è®¸å¼€é€šå½“å‰ä¸šåŠ¡è´¦å·
+            serviceDAO.start(id);
+            result.put("success", true);
+            result.put("message", "å¼€é€šæˆåŠŸ.");
+            //{"success":true,"message":"å¼€é€šæˆåŠŸ."}
+        } else {
+            //æ²¡æœ‰å¼€é€šè´¦åŠ¡è´¦å·ï¼Œä¸å…è®¸å¼€é€šå½“å‰ä¸šåŠ¡è´¦å·
+            result.put("success", false);
+            result.put("message", "è´¦åŠ¡è´¦å·æœªå¼€é€šï¼Œä¸èƒ½å¼€é€šæ­¤ä¸šåŠ¡è´¦å·.");
+        }
+        return result;
+    }
+
+    @RequestMapping("/toAddService.do")
+    public String toAdd(Model model) {
+        //æŸ¥è¯¢å‡ºç›¸å…³çš„èµ„è´¹æ•°æ®ï¼Œç”¨æ¥åˆå§‹åŒ–ä¸‹æ‹‰é€‰
+        List<Cost> list = costDAO.findAll();
+        model.addAttribute("costs", list);
+        return "service/add_service";
+    }
+
+    @RequestMapping("/addService.do")
+    public String add(Service service) {
+        //è®¾ç½®é»˜è®¤å€¼
+        service.setStatus("0");
+        service.setCreate_date((new Timestamp(System.currentTimeMillis())));
+        serviceDAO.save(service);
+        return "redirect:findService.do";
+    }
+
+    @RequestMapping("/searchAccount.do")
+    @ResponseBody
+    public Account searchAccount(String idcard_no) {
+        //{"account_id":1,"real_name":"å¼ ä¸‰",...}
+        return accountDAO.findByIdcard_no(idcard_no);
+    }
 }

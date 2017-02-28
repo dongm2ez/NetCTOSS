@@ -5,40 +5,40 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 /**
- *	±íµ¥ÏòController´«²ÎÊ±£¬Spring¶ÔÈÕÆÚµÄ´¦ÀíÀà¡£
- *	ÆäÄ¬ÈÏµÄÀà´æÔÚÎÊÌâ£¬ÎŞ·¨´¦Àí¿ÕµÄÈÕÆÚ£¬Òò´ËÕâÀï
- *	Ğ´Ò»¸ö×Ô¶¨ÒåµÄ´¦ÀíÀà¡£
+ * è¡¨å•å‘Controllerä¼ å‚æ—¶ï¼ŒSpringå¯¹æ—¥æœŸçš„å¤„ç†ç±»ã€‚
+ * å…¶é»˜è®¤çš„ç±»å­˜åœ¨é—®é¢˜ï¼Œæ— æ³•å¤„ç†ç©ºçš„æ—¥æœŸï¼Œå› æ­¤è¿™é‡Œ
+ * å†™ä¸€ä¸ªè‡ªå®šä¹‰çš„å¤„ç†ç±»ã€‚
  */
 public class DateEditor extends PropertyEditorSupport {
-	
-	//Ä¬ÈÏµÄÈÕÆÚ¸ñÊ½
-	private String pattern = "yyyy-MM-dd";
-	
-	public DateEditor() {
-		
-	}
-	
-	public DateEditor(String pattern) {
-		this.pattern = pattern;
-	}
 
-	/* 
-	 * @param text
-	 * 	ÊÇÒ³ÃæÎÄ±¾¿òÖĞµÄÖµ
-	 * ½«ÎÄ±¾¿òÊäÈëµÄÖµ¸ñÊ½»¯ºó£¬ÔÙÉèÖÃ¸øSpring
-	 */
-	@Override
-	public void setAsText(String text) 
-			throws IllegalArgumentException {
-		if(text == null || text.length() == 0) {
-			//Èç¹ûÊäÈëµÄÊÇ¿ÕÖµ£¬Ôò½«¿ÕÖµÉèÖÃ¸øSpring
-			//SpringÄ¬ÈÏµÄ´¦ÀíÀàÊµ¼ÊÉÏ¾ÍÊÇÉÙÁËÕâÒ»²½£¬²Å±¨´í
-			setValue(null);
-		} else {
-			SimpleDateFormat sf = new SimpleDateFormat(this.pattern);
-			String dateStr = sf.format(Date.valueOf(text));
-			setValue(Date.valueOf(dateStr));
-		}
-	}
+    //é»˜è®¤çš„æ—¥æœŸæ ¼å¼
+    private String pattern = "yyyy-MM-dd";
+
+    public DateEditor() {
+
+    }
+
+    public DateEditor(String pattern) {
+        this.pattern = pattern;
+    }
+
+    /*
+     * @param text
+     * 	æ˜¯é¡µé¢æ–‡æœ¬æ¡†ä¸­çš„å€¼
+     * å°†æ–‡æœ¬æ¡†è¾“å…¥çš„å€¼æ ¼å¼åŒ–åï¼Œå†è®¾ç½®ç»™Spring
+     */
+    @Override
+    public void setAsText(String text)
+            throws IllegalArgumentException {
+        if (text == null || text.length() == 0) {
+            //å¦‚æœè¾“å…¥çš„æ˜¯ç©ºå€¼ï¼Œåˆ™å°†ç©ºå€¼è®¾ç½®ç»™Spring
+            //Springé»˜è®¤çš„å¤„ç†ç±»å®é™…ä¸Šå°±æ˜¯å°‘äº†è¿™ä¸€æ­¥ï¼Œæ‰æŠ¥é”™
+            setValue(null);
+        } else {
+            SimpleDateFormat sf = new SimpleDateFormat(this.pattern);
+            String dateStr = sf.format(Date.valueOf(text));
+            setValue(Date.valueOf(dateStr));
+        }
+    }
 
 }
