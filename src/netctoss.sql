@@ -1,5 +1,6 @@
+
 select * from cost;
---×Ê·ÑĞÅÏ¢±í
+--èµ„è´¹ä¿¡æ¯è¡¨
 create table cost(
   	cost_id			number(4) constraint cost_id_pk primary key,
   	name 			varchar(50)  not null,
@@ -15,17 +16,17 @@ create table cost(
 
 create sequence cost_seq start with 100;
 
-INSERT INTO COST VALUES (1,'5.9ÔªÌ×²Í',20,5.9,0.4,0,'5.9Ôª20Ğ¡Ê±/ÔÂ,³¬³ö²¿·Ö0.4Ôª/Ê±',DEFAULT,DEFAULT,NULL);
-INSERT INTO COST VALUES (2,'6.9ÔªÌ×²Í',40,6.9,0.3,0,'6.9Ôª40Ğ¡Ê±/ÔÂ,³¬³ö²¿·Ö0.3Ôª/Ê±',DEFAULT,DEFAULT,NULL);
-INSERT INTO COST VALUES (3,'8.5ÔªÌ×²Í',100,8.5,0.2,0,'8.5Ôª100Ğ¡Ê±/ÔÂ,³¬³ö²¿·Ö0.2Ôª/Ê±',DEFAULT,DEFAULT,NULL);
-INSERT INTO COST VALUES (4,'10.5ÔªÌ×²Í',200,10.5,0.1,0,'10.5Ôª200Ğ¡Ê±/ÔÂ,³¬³ö²¿·Ö0.1Ôª/Ê±',DEFAULT,DEFAULT,NULL);
-INSERT INTO COST VALUES (5,'¼ÆÊ±ÊÕ·Ñ',null,null,0.5,0,'0.5Ôª/Ê±,²»Ê¹ÓÃ²»ÊÕ·Ñ',DEFAULT,DEFAULT,NULL);
-INSERT INTO COST VALUES (6,'°üÔÂ',null,20,null,0,'Ã¿ÔÂ20Ôª,²»ÏŞÖÆÊ¹ÓÃÊ±¼ä',DEFAULT,DEFAULT,NULL);
+INSERT INTO COST VALUES (1,'5.9å…ƒå¥—é¤',20,5.9,0.4,0,'5.9å…ƒ20å°æ—¶/æœˆ,è¶…å‡ºéƒ¨åˆ†0.4å…ƒ/æ—¶',DEFAULT,DEFAULT,NULL);
+INSERT INTO COST VALUES (2,'6.9å…ƒå¥—é¤',40,6.9,0.3,0,'6.9å…ƒ40å°æ—¶/æœˆ,è¶…å‡ºéƒ¨åˆ†0.3å…ƒ/æ—¶',DEFAULT,DEFAULT,NULL);
+INSERT INTO COST VALUES (3,'8.5å…ƒå¥—é¤',100,8.5,0.2,0,'8.5å…ƒ100å°æ—¶/æœˆ,è¶…å‡ºéƒ¨åˆ†0.2å…ƒ/æ—¶',DEFAULT,DEFAULT,NULL);
+INSERT INTO COST VALUES (4,'10.5å…ƒå¥—é¤',200,10.5,0.1,0,'10.5å…ƒ200å°æ—¶/æœˆ,è¶…å‡ºéƒ¨åˆ†0.1å…ƒ/æ—¶',DEFAULT,DEFAULT,NULL);
+INSERT INTO COST VALUES (5,'è®¡æ—¶æ”¶è´¹',null,null,0.5,0,'0.5å…ƒ/æ—¶,ä¸ä½¿ç”¨ä¸æ”¶è´¹',DEFAULT,DEFAULT,NULL);
+INSERT INTO COST VALUES (6,'åŒ…æœˆ',null,20,null,0,'æ¯æœˆ20å…ƒ,ä¸é™åˆ¶ä½¿ç”¨æ—¶é—´',DEFAULT,DEFAULT,NULL);
 COMMIT;
 
 
 
---ÕÊÎñĞÅÏ¢±í
+--å¸åŠ¡ä¿¡æ¯è¡¨
 create table account(
  	account_id		number(9) constraint account_id_pk primary key,
  	recommender_id	number(9),
@@ -99,7 +100,7 @@ COMMIT;
 
 
 
---ÒµÎñĞÅÏ¢±í
+--ä¸šåŠ¡ä¿¡æ¯è¡¨
 create table service(
  	service_id		number(10) constraint service_id_pk primary key,
  	account_id		number(9) not null,
@@ -134,7 +135,7 @@ COMMIT;
 
 
 
---ÒµÎñ×Ê·Ñ¸üĞÂ±¸·İ±í
+--ä¸šåŠ¡èµ„è´¹æ›´æ–°å¤‡ä»½è¡¨
 CREATE TABLE SERVICE_UPDATE_BAK(
  ID	 NUMBER(10) PRIMARY KEY,
  SERVICE_ID	NUMBER(9) NOT NULL,
@@ -143,7 +144,7 @@ CREATE TABLE SERVICE_UPDATE_BAK(
 
 create sequence service_bak_seq;
 
---Ä£¿é±í
+--æ¨¡å—è¡¨
 create table module_info(
 		module_id 	number(4) constraint module_info_id_pk primary key,
 		name 		varchar2(50) not null
@@ -151,7 +152,7 @@ create table module_info(
 
 create sequence module_seq start with 100;
 
---½ÇÉ«±í
+--è§’è‰²è¡¨
 create table role_info(
 		role_id		number(4)	constraint role_info_id_pk primary key,
 		name	varchar2(50) 	not null
@@ -159,7 +160,7 @@ create table role_info(
 
 create sequence role_seq start with 1000;
 
---½ÇÉ«Ä£¿é±í
+--è§’è‰²æ¨¡å—è¡¨
 create table role_module(
 		role_id     number(4) not null,
   	module_id   number(4) not null,
@@ -168,7 +169,7 @@ create table role_module(
 
 
 
---¹ÜÀíÔ±±í
+--ç®¡ç†å‘˜è¡¨
 create table admin_info(
    	admin_id 	number(8) primary key not null,
    	admin_code 	varchar2(30) not null,
@@ -182,7 +183,7 @@ create table admin_info(
 create sequence admin_seq start with 10000;
 
 
---¹ÜÀíÔ±½ÇÉ«±í
+--ç®¡ç†å‘˜è§’è‰²è¡¨
 create table admin_role(
 		admin_id	number(8) not null,
   	role_id		number(4) not null,
@@ -191,24 +192,24 @@ create table admin_role(
 
 
 
---Ä£¿é±í
-insert into MODULE_INFO values(1,'½ÇÉ«¹ÜÀí');
-insert into MODULE_INFO values(2,'¹ÜÀíÔ±');
-insert into MODULE_INFO values(3,'×Ê·Ñ¹ÜÀí');
-insert into MODULE_INFO values(4,'ÕËÎñÕËºÅ');
-insert into MODULE_INFO values(5,'ÒµÎñÕËºÅ');
-insert into MODULE_INFO values(6,'ÕËµ¥¹ÜÀí');
-insert into MODULE_INFO values(7,'±¨±í');
+--æ¨¡å—è¡¨
+insert into MODULE_INFO values(1,'è§’è‰²ç®¡ç†');
+insert into MODULE_INFO values(2,'ç®¡ç†å‘˜');
+insert into MODULE_INFO values(3,'èµ„è´¹ç®¡ç†');
+insert into MODULE_INFO values(4,'è´¦åŠ¡è´¦å·');
+insert into MODULE_INFO values(5,'ä¸šåŠ¡è´¦å·');
+insert into MODULE_INFO values(6,'è´¦å•ç®¡ç†');
+insert into MODULE_INFO values(7,'æŠ¥è¡¨');
 commit;
---½ÇÉ«±í
-insert into role_info values(100,'¹ÜÀíÔ±');
-insert into role_info values(200,'ÓªÒµÔ±');
-insert into role_info values(300,'¾­Àí');
+--è§’è‰²è¡¨
+insert into role_info values(100,'ç®¡ç†å‘˜');
+insert into role_info values(200,'è¥ä¸šå‘˜');
+insert into role_info values(300,'ç»ç†');
 insert into role_info values(400,'aaa');
 insert into role_info values(500,'bbb');
 insert into role_info values(600,'ccc');
 commit;
---½ÇÉ«Ä£¿é±í
+--è§’è‰²æ¨¡å—è¡¨
 insert into role_module values(100,1);
 insert into role_module values(100,2);
 insert into role_module values(200,3);
@@ -217,7 +218,7 @@ insert into role_module values(200,5);
 insert into role_module values(200,6);
 insert into role_module values(300,7);
 commit;
---¹ÜÀíÔ±±í
+--ç®¡ç†å‘˜è¡¨
 insert into admin_info values(2000,'admin','123','ADMIN','123456789','admin@tarena.com.cn',sysdate);
 insert into admin_info values(3000,'zhangfei','123','ZhangFei','123456789','zhangfei@tarena.com.cn',sysdate);
 insert into admin_info values(4000,'liubei','123','LiuBei','123456789','liubei@tarena.com.cn',sysdate);
@@ -225,7 +226,7 @@ insert into admin_info values(5000,'caocao','123','CaoCao','123456789','caocao@t
 insert into admin_info values(6000,'aaa','123','AAA','123456789','aaa@tarena.com.cn',sysdate);
 insert into admin_info values(7000,'bbb','123','BBB','123456789','bbb@tarena.com.cn',sysdate);
 commit;
---¹ÜÀíÔ±½ÇÉ«±í
+--ç®¡ç†å‘˜è§’è‰²è¡¨
 insert into admin_role values(2000,100);
 insert into admin_role values(3000,200);
 insert into admin_role values(4000,300);
